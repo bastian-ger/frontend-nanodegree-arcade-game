@@ -294,7 +294,13 @@ Player.prototype.changeGemGreen = function() {
 var Rock = function() {
     this.sprite = 'images/rock.png';
     this.x = this.randomX();
+    while (this.x === gemBlue.x || this.x === gemGreen.x) {
+      this.x = this.randomX();
+    }
     this.y = this.randomY();
+    while (this.y === gemBlue.y || this.y === gemGreen.y) {
+      this.y = this.randomY();
+    }
 };
 
 /*
