@@ -1,3 +1,13 @@
 body {
     text-align: center;
+    background-color: orange;
+    color: blue;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+p, a {
+  font-size: 20px;
 }
