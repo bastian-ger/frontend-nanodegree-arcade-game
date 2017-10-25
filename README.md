@@ -1,6 +1,15 @@
+# Title:
 frontend-nanodegree-arcade-game
-===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Description:
+In this game you need to cross the screen and reach the water. When you reach the water, you get one point. If you hit a bug or a rock, you lose one point. At some points in the game you can see a key. If you collect the key, you are able to make the rock disappear by running into it. Be careful, bugs get faster the more points you get.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## How to play the game:
+Use the arrow keys of your keyboard in order to control your player. Press *up* to move upwards. Press *down* to move downwards. Press *left* to move to the left. Press *right* to move to the right.
+
+## How you can start the game:
+First, you must download the zip-file on your computer and unzip all files.
+
+You can either just start the default game by running *index.html* in your browser or you can open *js/app.js* and change the initial speed of the bugs. Go to end of the file, where you can read *Instantiation of enemy objects*. There you can find detailed instructions. You will need a text editor like *Atom* in order to open and change this file.
+
+Have fun!
