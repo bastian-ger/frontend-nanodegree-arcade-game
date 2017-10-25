@@ -292,7 +292,7 @@ Player.prototype.changeGemGreen = function() {
  * The class Rock, which takes care of a rock
  */
 var Rock = function() {
-    this.sprite = 'images/rock.png';
+    this.sprite = 'images/Rock.png';
     this.x = this.randomX();
     this.y = this.randomY();
 };
@@ -402,7 +402,7 @@ Rock.prototype.appear = function() {
  * The class Key, which takes care of a key
  */
 var Key = function() {
-    this.sprite = 'images/key.png';
+    this.sprite = 'images/Key.png';
     this.x = this.randomX();
     this.y = this.randomY();
 };
