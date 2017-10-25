@@ -273,10 +273,17 @@ Player.prototype.changeGemBlue = function() {
     this.gemBlue = !this.gemBlue;
 };
 
+/*
+ * This method checks if player has a green Gem.
+ * Returns true if player has a green Gem, false if not.
+ */
 Player.prototype.hasGemGreen = function() {
     return this.gemGreen;
 };
 
+/*
+ * This method changes the boolean value of this.gemGreen.
+ */
 Player.prototype.changeGemGreen = function() {
     this.gemGreen = !this.gemGreen;
 };
@@ -371,7 +378,7 @@ Rock.prototype.randomY = function() {
 };
 
 /*
- * This method maekes the rock disappear
+ * This method makes the rock disappear
  */
 Rock.prototype.vanish = function() {
     this.y = 1000;
@@ -382,7 +389,13 @@ Rock.prototype.vanish = function() {
  */
 Rock.prototype.appear = function() {
     this.x = this.randomX();
+    while (this.x === gemBlue.x || this.x === gemGreen.x) {
+      this.x = this.randomX();
+    }
     this.y = this.randomY();
+    while (this.y === gemBlue.y || this.y === gemGreen.y) {
+      this.y = this.randomY();
+    }
 };
 
 /*
