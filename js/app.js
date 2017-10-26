@@ -609,7 +609,7 @@ GemBlue.prototype = Object.create(Gem.prototype);
 GemBlue.prototype.constructor = GemBlue;
 
 /*
- * This method displays a small gem at the bottom of the screen
+ * This method renders the gem
  */
 GemBlue.prototype.render = function() {
     ctx.save();
@@ -639,7 +639,7 @@ GemGreen.prototype = Object.create(Gem.prototype);
 GemGreen.prototype.constructor = GemGreen;
 
 /*
- * This method displays a small gem at the bottom of the screen
+ * This method renders the gem
  */
 GemGreen.prototype.render = function() {
     ctx.save();
