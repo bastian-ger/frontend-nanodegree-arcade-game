@@ -497,6 +497,9 @@ var Gem = function() {
     this.y = 1200;
 };
 
+/*
+ * This method returns a random x position for gems
+ */
 Gem.prototype.randomX = function() {
     var randomX = Math.floor((Math.random() * 5) + 1);
     switch (randomX) {
@@ -519,6 +522,9 @@ Gem.prototype.randomX = function() {
     return randomNumX;
 };
 
+/*
+ * This method returns a random y position for gems
+ */
 Gem.prototype.randomY = function() {
     var randomY = Math.floor((Math.random() * 3) + 1);
     switch (randomY) {
@@ -535,6 +541,9 @@ Gem.prototype.randomY = function() {
     return randomNumY;
 };
 
+/*
+ * This method takes care of the collision between gems and player
+ */
 Gem.prototype.update = function() {
     if ((player.x > this.x || player.x + data.BOY_WIDTH_LESS > this.x) && (player.x < this.x + data.GEM_WIDTH - 20 || player.x + data.BOY_WIDTH_LESS < this.x + data.GEM_WIDTH - 20) && this.y === player.y - (data.GEM_GAP - data.PLAYER_GAP)) {
         this.action();
@@ -542,6 +551,9 @@ Gem.prototype.update = function() {
     }
 };
 
+/*
+ * This method makes the gems appear
+ */
 Gem.prototype.appear = function() {
     this.x = this.randomX();
     while (this.x === rock.x || this.x === key.x) {
@@ -553,6 +565,9 @@ Gem.prototype.appear = function() {
     }
 };
 
+/*
+ * This method makes the gems disappear
+ */
 Gem.prototype.vanish = function() {
     this.y = 1200;
 };
@@ -569,6 +584,9 @@ GemBlue.prototype = Object.create(Gem.prototype);
 
 GemBlue.prototype.constructor = GemBlue;
 
+/*
+ * This method displays a small gem at the bottom of the screen
+ */
 GemBlue.prototype.render = function() {
     ctx.save();
     ctx.scale(1, 0.8);
@@ -576,11 +594,17 @@ GemBlue.prototype.render = function() {
     ctx.restore();
 };
 
+/*
+ * This method changes the boolean variable gemBlue of Player,
+ * which shows if the player has a gemBlue
+ */
 GemBlue.prototype.action = function() {
     player.changeGemBlue();
 };
 
-
+/*
+ * This is the class GemGreen, which is a subclass of Gem
+ */
 var GemGreen = function() {
     Gem.call(this);
     this.sprite = 'images/Gem Green.png';
@@ -590,6 +614,9 @@ GemGreen.prototype = Object.create(Gem.prototype);
 
 GemGreen.prototype.constructor = GemGreen;
 
+/*
+ * This method displays a small gem at the bottom of the screen
+ */
 GemGreen.prototype.render = function() {
     ctx.save();
     ctx.scale(1, 0.8);
@@ -597,6 +624,10 @@ GemGreen.prototype.render = function() {
     ctx.restore();
 };
 
+/*
+ * This method changes the boolean variable gemGreen of Player,
+ * which shows if the player has a gemGreen
+ */
 GemGreen.prototype.action = function() {
     player.changeGemGreen();
 };
