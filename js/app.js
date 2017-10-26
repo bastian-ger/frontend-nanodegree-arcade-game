@@ -1,5 +1,4 @@
-// To do: Change comments before render() of gems
-// To do: Write action after 3 gems were collected
+// Bug: Rock and Key at the same place at beginning!
 
 /*
  * This is some important data, which isn't available otherwise
@@ -64,11 +63,8 @@ Enemy.prototype.update = function(dt) {
     }
     //collision code (the value of 20 is a correction for optimization)
     else if ((player.x > this.x || player.x + data.BOY_WIDTH_LESS > this.x) && (player.x < this.x + data.ENEMY_WIDTH - 20 || player.x + data.BOY_WIDTH_LESS < this.x + data.ENEMY_WIDTH - 20) && this.y === player.y - (data.ENEMY_GAP - data.PLAYER_GAP)) {
-        player.gameReset();
-        for (var i = 0; i < allEnemies.length; i++) {
-            allEnemies[i].gameReset();
-        }
         player.subScore();
+        player.gameReset();
     }
     else {
         this.x = this.x + (this.speed * dt);
@@ -110,6 +106,8 @@ var Player = function() {
     this.gemBlue = false;
     this.gemGreen = false;
     this.gemOrange = false;
+    this.hasWon = false;
+    this.gamesWon = 0;
 };
 
 /*
@@ -121,7 +119,7 @@ Player.prototype.update = function() {
         case 5:
             this.sprite = 'images/char-cat-girl.png';
             for (var i = 0; i < allEnemies.length; i++) {
-                allEnemies[i].addSpeed(30);
+                allEnemies[i].addSpeed(25 * (1 + this.gamesWon));
             }
             if (rock.y === 1000) {
                 rock.appear();
@@ -131,7 +129,7 @@ Player.prototype.update = function() {
         case 10:
             this.sprite = 'images/char-horn-girl.png';
             for (var i = 0; i < allEnemies.length; i++) {
-                allEnemies[i].addSpeed(35);
+                allEnemies[i].addSpeed(35 * (1 + this.gamesWon));
             }
             if (rock.y === 1000) {
                 rock.appear();
@@ -141,7 +139,7 @@ Player.prototype.update = function() {
         case 15:
             this.sprite = 'images/char-pink-girl.png';
             for (var i = 0; i < allEnemies.length; i++) {
-                allEnemies[i].addSpeed(40);
+                allEnemies[i].addSpeed(45 * (1 + this.gamesWon));
             }
             if (rock.y === 1000) {
                 rock.appear();
@@ -151,7 +149,7 @@ Player.prototype.update = function() {
         case 20:
             this.sprite = 'images/char-princess-girl.png';
             for (var i = 0; i < allEnemies.length; i++) {
-                allEnemies[i].addSpeed(45);
+                allEnemies[i].addSpeed(55 * (1 + this.gamesWon));
             }
             if (rock.y === 1000) {
                 rock.appear();
@@ -190,6 +188,21 @@ Player.prototype.render = function() {
         ctx.drawImage(Resources.get(gemOrange.sprite), 850, 1770);
         ctx.restore();
     }
+    if (this.hasWon) {
+        window.alert('You won! Click OK to play a tougher game!');
+        this.sprite = 'images/char-boy.png';
+        this.x = data.WIDTH / 2 - data.BOY_WIDTH / 2;
+        this.y = data.ROW1 - data.PLAYER_GAP;
+        this.score = 0;
+        this.keys = 0;
+        this.gemBlue = false;
+        this.gemGreen = false;
+        this.gemOrange = false;
+        this.hasWon = false;
+        this.gamesWon += 1;
+        rock.vanish();
+        key.vanish();
+    }
 };
 
 /*
@@ -206,9 +219,6 @@ Player.prototype.handleInput = function(key) {
         case 'up':
             if (this.y < data.ROW5) {
                 this.gameReset();
-                for (var i = 0; i < allEnemies.length; i++) {
-                    allEnemies[i].gameReset();
-                }
                 this.addScore();
             }
             else {
@@ -327,9 +337,6 @@ Rock.prototype.update = function() {
     if (player.keys === 0) {
         if ((player.x > this.x || player.x + data.BOY_WIDTH_LESS > this.x) && (player.x < this.x + data.ROCK_WIDTH - 20 || player.x + data.BOY_WIDTH_LESS < this.x + data.ROCK_WIDTH - 20) && this.y === player.y - (data.ROCK_GAP - data.PLAYER_GAP)) {
             player.gameReset();
-            for (var i = 0; i < allEnemies.length; i++) {
-                allEnemies[i].gameReset();
-            }
             player.subScore();
         }
     }
@@ -572,6 +579,9 @@ Gem.prototype.update = function() {
     if ((player.x > this.x || player.x + data.BOY_WIDTH_LESS > this.x) && (player.x < this.x + data.GEM_WIDTH - 20 || player.x + data.BOY_WIDTH_LESS < this.x + data.GEM_WIDTH - 20) && this.y === player.y - (data.GEM_GAP - data.PLAYER_GAP)) {
         this.action();
         this.vanish();
+        if (player.hasGemBlue() && player.hasGemGreen() && player.hasGemOrange()) {
+            player.hasWon = true;
+        }
     }
 };
 
