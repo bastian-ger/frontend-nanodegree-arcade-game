@@ -1,6 +1,5 @@
-//To Do: Key and Rock must not appear at place of gems (careful!)
-//To DO: Write subclass for 3rd gems
-//To DO: Write action after 3 gems were collected
+// To do: Change comments before render() of gems
+// To do: Write action after 3 gems were collected
 
 /*
  * This is some important data, which isn't available otherwise
@@ -110,6 +109,7 @@ var Player = function() {
     this.keys = 0;
     this.gemBlue = false;
     this.gemGreen = false;
+    this.gemOrange = false;
 };
 
 /*
@@ -182,6 +182,12 @@ Player.prototype.render = function() {
         ctx.save();
         ctx.scale(0.3, 0.3);
         ctx.drawImage(Resources.get(gemGreen.sprite), 800, 1770);
+        ctx.restore();
+    }
+    if (this.hasGemOrange()) {
+        ctx.save();
+        ctx.scale(0.3, 0.3);
+        ctx.drawImage(Resources.get(gemOrange.sprite), 850, 1770);
         ctx.restore();
     }
 };
@@ -289,6 +295,21 @@ Player.prototype.changeGemGreen = function() {
 };
 
 /*
+ * This method checks if player has an orange Gem.
+ * Returns true if player has an orange Gem, false if not.
+ */
+Player.prototype.hasGemOrange = function() {
+    return this.gemOrange;
+};
+
+/*
+ * This method changes the boolean value of this.gemOrange.
+ */
+Player.prototype.changeGemOrange = function() {
+    this.gemOrange = !this.gemOrange;
+};
+
+/*
  * The class Rock, which takes care of a rock
  */
 var Rock = function() {
@@ -321,6 +342,9 @@ Rock.prototype.update = function() {
             }
             if (player.hasGemBlue() && player.hasGemGreen() === false) {
                 gemGreen.appear();
+            }
+            if (player.hasGemBlue() && player.hasGemGreen() && player.hasGemOrange() === false) {
+                gemOrange.appear();
             }
         }
     }
@@ -389,11 +413,11 @@ Rock.prototype.vanish = function() {
  */
 Rock.prototype.appear = function() {
     this.x = this.randomX();
-    while (this.x === gemBlue.x || this.x === gemGreen.x) {
+    while (this.x === gemBlue.x || this.x === gemGreen.x || this.x === gemOrange.x) {
       this.x = this.randomX();
     }
     this.y = this.randomY();
-    while (this.y === gemBlue.y || this.y === gemGreen.y) {
+    while (this.y === gemBlue.y || this.y === gemGreen.y || this.y === gemOrange.y) {
       this.y = this.randomY();
     }
 };
@@ -480,11 +504,11 @@ Key.prototype.vanish = function() {
  */
 Key.prototype.appear = function() {
     this.x = this.randomX();
-    while (this.x === rock.x || this.x === gemBlue.x || this.x === gemGreen.x) {
+    while (this.x === rock.x || this.x === gemBlue.x || this.x === gemGreen.x || this.x === gemOrange.x) {
         this.x = this.randomX();
     }
     this.y = this.randomY();
-    while (this.y === rock.y || this.y === gemBlue.y || this.y === gemGreen.y) {
+    while (this.y === rock.y || this.y === gemBlue.y || this.y === gemGreen.y || this.y === gemOrange.y) {
         this.y = this.randomY();
     }
 };
@@ -633,6 +657,36 @@ GemGreen.prototype.action = function() {
 };
 
 /*
+ * This is the class GemOrange, which is a subclass of Gem
+ */
+var GemOrange = function() {
+    Gem.call(this);
+    this.sprite = 'images/Gem Orange.png';
+};
+
+GemOrange.prototype = Object.create(Gem.prototype);
+
+GemOrange.prototype.constructor = GemOrange;
+
+/*
+ * This method renders the gem
+ */
+GemOrange.prototype.render = function() {
+    ctx.save();
+    ctx.scale(1, 0.8);
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y / 0.8);
+    ctx.restore();
+};
+
+/*
+ * This method changes the boolean variable gemOrange of Player,
+ * which shows if the player has a gemOrange
+ */
+GemOrange.prototype.action = function() {
+    player.changeGemOrange();
+};
+
+/*
  * Instantiation of enemy objects
  * Enter the initial speed of all three enemies in the second place between the parentheses
  * in var enemy1, var enemy2 and var enemy3 or leave default values in place.
@@ -652,6 +706,7 @@ var rock = new Rock();
 var key = new Key();
 var gemBlue = new GemBlue();
 var gemGreen = new GemGreen();
+var gemOrange = new GemOrange();
 
 /*
  * This listens for key presses and sends the keys to
