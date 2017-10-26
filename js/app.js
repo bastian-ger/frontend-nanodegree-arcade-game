@@ -1,5 +1,3 @@
-// Bug: Rock and Key at the same place at beginning!
-
 /*
  * This is some important data, which isn't available otherwise
  */
@@ -436,6 +434,12 @@ var Key = function() {
     this.sprite = 'images/Key.png';
     this.x = this.randomX();
     this.y = this.randomY();
+    while (this.x === rock.x) {
+        this.x = this.randomX();
+    }
+    while (this.y === rock.y) {
+        this.y = this.randomY();
+    }
 };
 
 /*
