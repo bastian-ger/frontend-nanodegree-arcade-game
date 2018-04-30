@@ -12,4 +12,8 @@ First, you need to download the zip-file on your computer and unzip all files.
 
 You can either just start the default game by running *index.html* in your browser or you can open *js/app.js* and change the initial speed of the bugs. Go to end of the file, where you can read *Instantiation of enemy objects*. There you can find detailed instructions. You will need a text editor like *Atom* in order to open and change this file.
 
+Further Information:
+This game is published at:
+[https://bastian-ger.github.io/frontend-nanodegree-arcade-game/](https://bastian-ger.github.io/frontend-nanodegree-arcade-game/)
+
 Have fun!
